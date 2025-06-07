@@ -1,19 +1,17 @@
 # 🐾 PETTY - 반려동물과 떠나는 완벽한 여행
 
-
 <div align="center">
   
 ![MAIN-001](https://github.com/user-attachments/assets/2982f23f-718c-4b14-b5f8-638cff4e5258)
 
-
-
 ![PETTY Logo](https://img.shields.io/badge/PETTY-🐾-orange?style=for-the-badge)
 
-[![Spring Boot](https://img.shields.io/badge/Spring%20Boot-3.4.0-6DB33F?style=flat-square&logo=spring-boot)](https://spring.io/projects/spring-boot)
-[![Java](https://img.shields.io/badge/Java-21-ED8B00?style=flat-square&logo=openjdk)](https://openjdk.org/)
+[![Spring Boot](https://img.shields.io/badge/Spring%20Boot-6DB33F?style=flat-square&logo=spring-boot)](https://spring.io/projects/spring-boot)
+[![Java](https://img.shields.io/badge/Java--ED8B00?style=flat-square&logo=openjdk)](https://openjdk.org/)
 [![PostgreSQL](https://img.shields.io/badge/PostgreSQL-316192?style=flat-square&logo=postgresql)](https://postgresql.org/)
 [![MySQL](https://img.shields.io/badge/MySQL-4479A1?style=flat-square&logo=mysql)](https://mysql.com/)
 [![Qdrant](https://img.shields.io/badge/Qdrant-Vector%20DB-DC382D?style=flat-square)](https://qdrant.tech/)
+[![Oracle Cloud](https://img.shields.io/badge/Oracle%20Cloud-F80000?style=flat-square&logo=oracle&logoColor=white)](https://www.oracle.com/cloud/)
 [![AWS](https://img.shields.io/badge/AWS-FF9900?style=flat-square&logo=amazon-aws)](https://aws.amazon.com/)
 [![Supabase](https://img.shields.io/badge/Supabase-3ECF8E?style=flat-square&logo=supabase)](https://supabase.com/)
 
@@ -21,7 +19,7 @@
 
 ## 🎯 서비스 소개
 
-😽 PETTY는 반려동물과 함께하는 여행을 위한 AI 기반 추천 서비스입니다   
+😽 PETTY는 반려동물과 함께하는 여행을 위한 AI 기반 추천 서비스입니다  
 🐶 사용자의 반려동물 사진을 분석하여 맞춤형 여행지를 추천받을 수 있어요!  
 🗺️ 현재 위치 기반 주변에 있는 반려동물 여행지 리스트를 확인할 수 있어요!  
 🖊️ 커뮤니티 기능을 통해 반려동물 여행 경험을 공유할 수 있어요!
@@ -29,40 +27,52 @@
 ## ✨ 주요 기능
 
 ### 🤖 AI 반려동물 분석
+
 > 반려동물 사진을 입력하면, 성격, 외모, 특성에 대한 정보 분석
+
 - **다중 AI 모델**: AWS Rekognition + Gemini 2.0 Flash + Llama 3.2 Vision
 - **특성 분석**: 종, 품종, 크기, 무게, 맹견 여부 자동 판별
 - **폴백 시스템**: 모델 간 우선순위를 통한 안정성 보장
 
 ### 🔍 벡터 기반 여행지 추천
+
 > 사용자가 원하는 조건의 여행지를 입력하면 AI를 통해 맞춤 추천 제공
+
 - **의미 검색**: OpenAI Embeddings + Qdrant Vector DB
 - **지능형 리랭킹**: Gemini를 활용한 맞춤형 순위 조정
 - **다중 필터링**: 지역, 카테고리, 반려동물 조건 복합 검색
 
 ### 🗺️ 여행지 정보 시스템
+
 > GPS 현재 위치 기반 반려 동물 동반 가능 여행 정보 제공
+
 - **실시간 동기화**: 한국관광공사 API 자동 연동
 - **위치 기반 검색**: PostGIS 공간 인덱스 활용
 - **상세 정보**: 시설, 편의사항, 반려동물 동반 조건
 
 ### 👥 커뮤니티 플랫폼
-> CRUD, 댓글, 좋아요 등 사용자를 고려한 커뮤니티 기능능
+
+> CRUD, 댓글, 좋아요 등 사용자를 고려한 커뮤니티 기능
+
 - **게시판**: 후기, 자랑, Q&A 카테고리별 운영
 - **이미지 업로드**: Supabase Storage 연동
 - **소셜 기능**: 좋아요, 댓글, 알림 시스템
 
-
 <br>
 
-## 🛠 아키텍처 및 기술 스택
+## 📒 아키텍처 및 ERD
 
 ![architecture](https://github.com/user-attachments/assets/cc66d18b-03b9-4b86-90ca-45ad1c9b2443)
+
+![ERD1](https://github.com/user-attachments/assets/187b698a-4193-4d4b-a44f-c20a92383bd7)
+![ERD2](https://github.com/user-attachments/assets/378cb79e-dc85-4f9a-97f1-97af5fb3eac7)
+
+## 🛠 기술 스택
 
 ### Backend
 
 ```
-Spring Boot 3.4.0
+Spring Boot
 ├── Spring Security (JWT + OAuth2)
 ├── Spring Data JPA (멀티 데이터소스)
 ├── Spring AI (OpenAI Integration)
@@ -240,7 +250,6 @@ flowchart LR
     style F fill:#fff3e0
 ```
 
-
 <br>
 
 ## 📚 API 문서
@@ -255,21 +264,15 @@ POST /api/auth/send-verification # 이메일 인증
 POST /api/auth/verify-code      # 인증 코드 확인
 ```
 
-#### 👁️ Vision AI API
+#### 👁️ Vision 모델 분석 API
 
 ```http
+GET /vision/upload          # 반려동물 사진 업로드
 POST /vision/species           # 반려동물 종 판별
 POST /vision/analyze          # 상세 분석
 ```
 
-#### 🎯 추천 API
-
-```http
-POST /api/recommend           # 여행지 추천
-GET /recommend/detail/{id}    # 상세 정보
-```
-
-#### 🗺️ 여행지 API
+#### 🗺️ 여행 추천 API
 
 ```http
 GET /api/tour/codes                    # 지역 코드 조회
@@ -327,38 +330,7 @@ src/main/java/io/github/petty/
     └── service/               # 파이프라인 오케스트레이션
 ```
 
-### 주요 설계 패턴
-
-#### 🏛️ 헥사고날 아키텍처 (Vision 모듈)
-
-```
-vision/
-├── port/in/          # Use Case 인터페이스
-├── port/out/         # 외부 시스템 인터페이스
-├── adapter/in/       # 컨트롤러 (Primary Adapter)
-├── adapter/out/      # 외부 API 클라이언트 (Secondary Adapter)
-└── service/          # 비즈니스 로직
-```
-
-#### 🔄 멀티 데이터소스 설정
-
-```java
-@Configuration
-@EnableJpaRepositories(
-    basePackages = "io.github.petty.users.repository",
-    entityManagerFactoryRef = "supabaseEntityManagerFactory"
-)
-public class SupabaseDataSourceConfig { ... }
-
-@Configuration
-@EnableJpaRepositories(
-    basePackages = "io.github.petty.tour.repository",
-    entityManagerFactoryRef = "aivenEntityManagerFactory"
-)
-public class AivenDataSourceConfig { ... }
-```
-
-## 🔍 핵심 기능 상세
+## 🔍 핵심 기능
 
 ### 1. AI 기반 반려동물 분석
 
@@ -405,38 +377,25 @@ public RecommendResponseDTO recommend(Map<String, String> promptMap) {
 }
 ```
 
-### 3. 실시간 데이터 동기화
+### 3. JWT 기반 로그인
 
 #### 🎯 특징
-
-- **스케줄링**: 매일 새벽 3시 자동 동기화
-- **증분 업데이트**: 변경된 데이터만 처리
-- **트랜잭션 안전성**: 실패 시 롤백 보장
-
-#### 🔧 구현 핵심
-
-```java
-@Scheduled(cron = "0 0 3 * * *", zone = "Asia/Seoul")
-@Transactional
-public void synchronizePetTourData() {
-    List<LocalDate> datesToSync = getSyncDatesToProcess();
-    for (LocalDate date : datesToSync) {
-        dateSyncProcessor.syncForDate(date);
-    }
-}
-```
-
-
-<br>
-
-## 🔒 보안
-
-### 🛡️ 인증 & 인가
 
 - **JWT**: Access Token (1시간) + Refresh Token (7일)
 - **OAuth2**: GitHub, Kakao 소셜 로그인 지원
 - **Cookie 보안**: HttpOnly, Secure 설정
 
+#### 🔧 구현 핵심
+
+### 4. 현재 위치 기반 검색색
+
+#### 🎯 특징
+
+- **카카오 지도 API**: 카카오 API 활용 현재 위치 정보 불러오기
+- **거리 설정** : 위치 기준 거리 정보 활용
+- **공공데이터 활용** : 공공데이터포털 Tour API 활용 정확한 정보 제공
+
+#### 🔧 구현 핵심
 
 <br>
 
