@@ -61,11 +61,11 @@
 <br>
 
 ## 📒 아키텍처 및 ERD
-
-![architecture](https://github.com/user-attachments/assets/cc66d18b-03b9-4b86-90ca-45ad1c9b2443)
-
-![ERD1](https://github.com/user-attachments/assets/187b698a-4193-4d4b-a44f-c20a92383bd7)
-![ERD2](https://github.com/user-attachments/assets/378cb79e-dc85-4f9a-97f1-97af5fb3eac7)
+   <img src="https://github.com/user-attachments/assets/cc66d18b-03b9-4b86-90ca-45ad1c9b2443" width="1000" alt="diagram">
+   <br><br>
+  <img src="https://github.com/user-attachments/assets/85d18a85-c2d2-4098-b552-ca2ce94a8e45" width="1000" alt="Image 1">
+  <br><br>
+  <img src="https://github.com/user-attachments/assets/fee6db1f-5044-48bf-8f89-a432cb5b5eb5" width="1000" alt="Image 2">
 
 ## 🛠 기술 스택
 
@@ -387,7 +387,7 @@ public RecommendResponseDTO recommend(Map<String, String> promptMap) {
 
 #### 🔧 구현 핵심
 
-### 4. 현재 위치 기반 검색색
+### 4. 현재 위치 기반 검색
 
 #### 🎯 특징
 
@@ -401,7 +401,7 @@ public RecommendResponseDTO recommend(Map<String, String> promptMap) {
 
 ## 📌 팀원 소개
 
-| <img src="https://avatars.githubusercontent.com/LimPark996" width=100px> | <img src="https://avatars.githubusercontent.com/taehyun32" width=100px> | <img src="https://avatars.githubusercontent.com/Juyoung8563" width=100px> | <img src="https://avatars.githubusercontent.com/usn757" width=100px> | <img src="https://avatars.githubusercontent.com/23MinL" width=100px> | <img src="https://avatars.githubusercontent.com/s0ooo0k" width=100px> |
+| <img src="https://avatars.githubusercontent.com/taehyun32" width=100px>  | <img src="https://avatars.githubusercontent.com/LimPark996" width=100px>| <img src="https://avatars.githubusercontent.com/Juyoung8563" width=100px> | <img src="https://avatars.githubusercontent.com/usn757" width=100px> | <img src="https://avatars.githubusercontent.com/23MinL" width=100px> | <img src="https://avatars.githubusercontent.com/s0ooo0k" width=100px> |
 | :----------------------------------------------------------------------: | :---------------------------------------------------------------------: | :-----------------------------------------------------------------------: | :------------------------------------------------------------------: | :------------------------------------------------------------------: | :-------------------------------------------------------------------: |
 |                                  김태현                                  |                                 박유미                                  |                                  손주영                                   |                                유승남                                |                                이상민                                |                                지현숙                                 |
 |                [@taehyun32](https://github.com/taehyun32)                |             [@Yumi-Park996](https://github.com/LimPark996)              |              [@Juyoung8563](https://github.com/Juyoung8563)               |                 [@usn757](https://github.com/usn757)                 |                 [@23MinL](https://github.com/23MinL)                 |                [@s0ooo0k](https://github.com/s0ooo0k)                 |
