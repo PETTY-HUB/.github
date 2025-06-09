@@ -24,7 +24,19 @@
 🗺️ 현재 위치 기반 주변에 있는 반려동물 여행지 리스트를 확인할 수 있어요!  
 🖊️ 커뮤니티 기능을 통해 반려동물 여행 경험을 공유할 수 있어요!
 
+
+<br>
+
 ## ✨ 주요 기능
+
+###  🎯 JWT 기반 로그인
+> 이메일 인증과 소셜 로그인을 통한 사용자 인증 시스템
+
+- **로컬 로그인**: 이메일 인증 기반 SMTP 회원가입
+- **소셜 로그인**: GitHub, Kakao OAuth2 연동
+- **JWT**: Access Token (1시간) + Refresh Token (7일)
+- **Cookie 보안**: HttpOnly, Secure 설정
+- **토큰 순환**: 사용자별 최대 3개 Refresh Token 관리 
 
 ### 🤖 AI 반려동물 분석
 
@@ -38,17 +50,17 @@
 
 > 사용자가 원하는 조건의 여행지를 입력하면 AI를 통해 맞춤 추천 제공
 
-- **의미 검색**: OpenAI Embeddings + Qdrant Vector DB
-- **지능형 리랭킹**: Gemini를 활용한 맞춤형 순위 조정
+- **유사도 검색**: OpenAI Embeddings + Qdrant Vector DB
+- **AI 활용 리랭킹**: Gemini를 활용한 맞춤형 순위 조정
 - **다중 필터링**: 지역, 카테고리, 반려동물 조건 복합 검색
 
 ### 🗺️ 여행지 정보 시스템
 
 > GPS 현재 위치 기반 반려 동물 동반 가능 여행 정보 제공
 
-- **실시간 동기화**: 한국관광공사 API 자동 연동
-- **위치 기반 검색**: PostGIS 공간 인덱스 활용
-- **상세 정보**: 시설, 편의사항, 반려동물 동반 조건
+- **실시간 동기화**: 한국관광공사 Tour API 자동 연동
+- **위치 기반 검색**: 카카오 지도 API 및 공간 인덱스 활용
+- **상세 정보**: 시설, 편의사항, 반려동물 동반 조건 필터링
 
 ### 👥 커뮤니티 플랫폼
 
@@ -60,24 +72,26 @@
 
 <br>
 
-## 📒 아키텍처 및 ERD
-   <img src="https://github.com/user-attachments/assets/cc66d18b-03b9-4b86-90ca-45ad1c9b2443" width="1000" alt="diagram">
-   <br><br>
+## 📒 ERD 및 기술 스택
+### 🛠 ERD
+
   <img src="https://github.com/user-attachments/assets/85d18a85-c2d2-4098-b552-ca2ce94a8e45" width="1000" alt="Image 1">
   <br><br>
   <img src="https://github.com/user-attachments/assets/fee6db1f-5044-48bf-8f89-a432cb5b5eb5" width="1000" alt="Image 2">
 
 ## 🛠 기술 스택
+   <img src="https://github.com/user-attachments/assets/cc66d18b-03b9-4b86-90ca-45ad1c9b2443" width="1000" alt="diagram">
+   <br><br>
 
+   
 ### Backend
 
 ```
 Spring Boot
 ├── Spring Security (JWT + OAuth2)
 ├── Spring Data JPA (멀티 데이터소스)
-├── Spring AI (OpenAI Integration)
-├── MapStruct (DTO 매핑)
-└── Validation (Bean Validation)
+├── Spring AI
+└── Validation
 ```
 
 ### Database & Storage
@@ -105,7 +119,8 @@ AI 파이프라인
 
 ```
 클라우드 인프라
-├── AWS (Rekognition, 배포)
+├── Oracle Cloud Infrastructure (배포)
+├── AWS (Rekognition)
 ├── Supabase (PostgreSQL, Storage)
 ├── Aiven (MySQL)
 └── Qdrant Cloud (Vector DB)
@@ -250,152 +265,6 @@ flowchart LR
     style F fill:#fff3e0
 ```
 
-<br>
-
-## 📚 API 문서
-
-### 주요 엔드포인트
-
-#### 🔐 인증 API
-
-```http
-POST /api/auth/refresh          # 토큰 갱신
-POST /api/auth/send-verification # 이메일 인증
-POST /api/auth/verify-code      # 인증 코드 확인
-```
-
-#### 👁️ Vision 모델 분석 API
-
-```http
-GET /vision/upload          # 반려동물 사진 업로드
-POST /vision/species           # 반려동물 종 판별
-POST /vision/analyze          # 상세 분석
-```
-
-#### 🗺️ 여행 추천 API
-
-```http
-GET /api/tour/codes                    # 지역 코드 조회
-GET /api/tour/search/area             # 지역별 검색
-GET /api/tour/search/location         # 위치 기반 검색
-GET /contents/{contentId}             # 상세 정보
-```
-
-#### 💬 커뮤니티 API
-
-```http
-GET /api/posts                        # 게시글 목록
-POST /api/posts                       # 게시글 작성
-GET /api/posts/{id}/comments          # 댓글 조회
-POST /api/images/upload               # 이미지 업로드
-```
-
-## 📁 프로젝트 구조
-
-```
-src/main/java/io/github/petty/
-├── 🔐 users/                  # 사용자 관리
-│   ├── controller/            # 인증, 프로필 API
-│   ├── jwt/                   # JWT 토큰 처리
-│   ├── oauth2/                # OAuth2 소셜 로그인
-│   └── service/               # 사용자 비즈니스 로직
-│
-├── 💬 community/              # 커뮤니티 시스템
-│   ├── controller/            # 게시글, 댓글 API
-│   ├── entity/                # JPA 엔티티
-│   └── service/               # 커뮤니티 비즈니스 로직
-│
-├── 🗺️ tour/                   # 여행지 정보
-│   ├── controller/            # 여행지 검색 API
-│   ├── entity/                # 여행지 데이터 모델
-│   ├── repository/            # 데이터 접근 레이어
-│   └── service/               # 여행지 비즈니스 로직
-│
-├── 👁️ vision/                 # AI Vision 분석
-│   ├── adapter/               # 외부 API 어댑터
-│   ├── service/               # Vision 서비스
-│   └── helper/                # 이미지 검증, 프롬프트
-│
-├── 🧠 llm/                    # LLM 추천 시스템
-│   ├── service/               # 임베딩, 벡터 검색
-│   └── dto/                   # 추천 요청/응답 DTO
-│
-├── 🔄 dbsync/                 # 데이터 동기화
-│   ├── client/                # 외부 API 클라이언트
-│   ├── service/               # 동기화 비즈니스 로직
-│   └── mapper/                # 데이터 매핑
-│
-└── 🚀 pipeline/               # 통합 파이프라인
-    ├── controller/            # 통합 플로우 제어
-    └── service/               # 파이프라인 오케스트레이션
-```
-
-## 🔍 핵심 기능
-
-### 1. AI 기반 반려동물 분석
-
-#### 🎯 특징
-
-- **다단계 분석**: Rekognition → Gemini → Llama 순차 처리
-- **캐싱 최적화**: Spring Cache로 중복 분석 방지
-- **폴백 시스템**: AI 모델 실패 시 자동 대체
-
-#### 🔧 구현 핵심
-
-```java
-@Cacheable(value = "visionResults")
-public String analyze(MultipartFile file, String petName) {
-    String species = detector.detect(img);
-
-    try {
-        return gemini.generate(prompt.toGeminiReq(img, petName, species)).plainText();
-    } catch (Exception e) {
-        return together.generate(prompt.toTogetherReq(img, petName)).plainText();
-    }
-}
-```
-
-### 2. 벡터 기반 추천 시스템
-
-#### 🎯 특징
-
-- **의미 검색**: OpenAI Embeddings로 자연어 이해
-- **지능형 필터링**: 지역, 카테고리, 반려동물 조건 복합 처리
-- **개인화 리랭킹**: Gemini를 활용한 맞춤형 순위 조정
-
-#### 🔧 구현 핵심
-
-```java
-public RecommendResponseDTO recommend(Map<String, String> promptMap) {
-    String userPrompt = buildPrompt(promptMap);
-    Filter.Expression filter = buildRegionFilter(location);
-
-    List<Document> docs = vectorStoreService.findSimilarWithFilter(userPrompt, 10, filter);
-    GeminiRerankResponseDTO rerank = geminiRerankingService.rerankGemini(userPrompt, docs);
-
-    return buildRecommendResponse(rerank);
-}
-```
-
-### 3. JWT 기반 로그인
-
-#### 🎯 특징
-
-- **JWT**: Access Token (1시간) + Refresh Token (7일)
-- **OAuth2**: GitHub, Kakao 소셜 로그인 지원
-- **Cookie 보안**: HttpOnly, Secure 설정
-
-#### 🔧 구현 핵심
-
-### 4. 현재 위치 기반 검색
-
-#### 🎯 특징
-
-- **카카오 지도 API**: 카카오 API 활용 현재 위치 정보 불러오기
-- **거리 설정** : 위치 기준 거리 정보 활용
-- **공공데이터 활용** : 공공데이터포털 Tour API 활용 정확한 정보 제공
-
-#### 🔧 구현 핵심
 
 <br>
 
@@ -403,9 +272,10 @@ public RecommendResponseDTO recommend(Map<String, String> promptMap) {
 
 | <img src="https://avatars.githubusercontent.com/taehyun32" width=100px>  | <img src="https://avatars.githubusercontent.com/LimPark996" width=100px>| <img src="https://avatars.githubusercontent.com/Juyoung8563" width=100px> | <img src="https://avatars.githubusercontent.com/usn757" width=100px> | <img src="https://avatars.githubusercontent.com/23MinL" width=100px> | <img src="https://avatars.githubusercontent.com/s0ooo0k" width=100px> |
 | :----------------------------------------------------------------------: | :---------------------------------------------------------------------: | :-----------------------------------------------------------------------: | :------------------------------------------------------------------: | :------------------------------------------------------------------: | :-------------------------------------------------------------------: |
-|                                  김태현                                  |                                 박유미                                  |                                  손주영                                   |                                유승남                                |                                이상민                                |                                지현숙                                 |
+|                                  김태현                  |                                 박유미                                |                                  손주영                                   |                                유승남                 |                                이상민                  |                                지현숙                  |
 |                [@taehyun32](https://github.com/taehyun32)                |             [@Yumi-Park996](https://github.com/LimPark996)              |              [@Juyoung8563](https://github.com/Juyoung8563)               |                 [@usn757](https://github.com/usn757)                 |                 [@23MinL](https://github.com/23MinL)                 |                [@s0ooo0k](https://github.com/s0ooo0k)                 |
+
 
 ## 📬 연락하기
 
-프로젝트에 대한 질문이나 제안이 있다면 [Issues](https://github.com/PETTY-HUB/PETTY-BACK) 를 통해 자유롭게 의견을 남겨주세요!
+프로젝트에 대한 질문이나 제안이 있다면 [Issues](https://github.com/PETTY-HUB/PETTY-BACK/issues)를 통해 자유롭게 의견을 남겨주세요!
